@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Library</title>
+  </head>
+
+  <body>
+
+    <form id="form">
+  <p>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="book_title" />
+  </p>
+  <p>
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="book_author" />
+  </p>
+  <p>
+    <label for="pages">Pages:</label>
+    <input type="text" id="pages" name="book_pages"></textarea>
+  </p>
+  <label for="options">Choose an option:</label>
+<select id="options" name="options">
+  <option value="read">Read</option>
+  <option value="unread">Unread</option>
+</select>
+<p class="button">
+  <button type="button" onclick="addBookToLibrary()">Save book info</button>
+</p>
+</form>
+    
+    <script>
+      
+      
+
+  /*    function Book(title) {
+  
+  if (!new.target) {
+    throw Error("You must use the 'new' operator to call the constructor");
+  }
+  this.title = title;
+  this.displayBook = function() {
+    console.log(this.title)
+  };
+}  */
+
+      const myLibrary = [];
+      console.log(myLibrary)
+      
+      function addBookToLibrary () {
+
+      const input1 = document.getElementById('title').value;
+      const input2 = document.getElementById('author').value;
+      const input3 = document.getElementById('pages').value;
+      const input4 = document.getElementById('options').value;
+      const input5 = crypto.randomUUID()
+
+      myLibrary.push(input1, input2, input3, input4, input5);
+
+      }
+
+      
+
+    </script>
+  </body>
+
+</html>
