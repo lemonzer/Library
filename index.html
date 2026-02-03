@@ -30,38 +30,76 @@
   <button type="button" onclick="addBookToLibrary()">Save book info</button>
 </p>
 </form>
+
+
+<div id="result"></div>
     
     <script>
       
-      
+const myLibrary = [];      
 
-  /*    function Book(title) {
+function Book(title, author, pages, option, id) {
   
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
   }
   this.title = title;
-  this.displayBook = function() {
-    console.log(this.title)
+  this.author = author;
+  this.pages = pages;
+  this.option = option;
+  this.id = id;
   };
-}  */
 
-      const myLibrary = [];
-      console.log(myLibrary)
-      
-      function addBookToLibrary () {
+
+    
+  function addBookToLibrary () {
 
       const input1 = document.getElementById('title').value;
       const input2 = document.getElementById('author').value;
       const input3 = document.getElementById('pages').value;
       const input4 = document.getElementById('options').value;
       const input5 = crypto.randomUUID()
-
-      myLibrary.push(input1, input2, input3, input4, input5);
-
+      
+      if (input1 !== "" && input2 !== "" && input3 !== "") {
+      myLibrary.push({title: input1, author: input2, pages: input3, option: input4, id: input5});
       }
 
+      const resultDiv = document.getElementById("result");
+    
+    // Clear previous content if any (optional, useful if clicking multiple times)
+    resultDiv.innerHTML = ''; 
+
+    
+    // Iterate through the array and create HTML elements for each item
+    myLibrary.forEach(element => {
+        const itemDiv = document.createElement("div"); // Create a new div for each item
+        itemDiv.innerHTML = `Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Option: ${element.option}`;
+        // itemDiv.textContent = element; // Set the text content
+        resultDiv.appendChild(itemDiv); // Append the new div to the result container
+    });
+
+  }
+
+/*
+      const listContainer = document.getElementById("listContainer");
+
+      myLibrary.forEach(item=>{
+      const li = document.createElement("li");
+      li.textContent = item;
+      listContainer.appendChild(li);
+      }) 
+*/
       
+      
+
+
+      /*
+      const listElement = document.getElementById("booklist");
+
+      const listHTML = myLibrary.map(item => '<li>${item}</li>').join('');
+
+      listElement.innerHTML = listHTML;
+      */
 
     </script>
   </body>
