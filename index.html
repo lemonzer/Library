@@ -60,26 +60,32 @@ function Book(title, author, pages, option, id) {
       const input4 = document.getElementById('options').value;
       const input5 = crypto.randomUUID()
       
-      if (input1 !== "" && input2 !== "" && input3 !== "") {
-      myLibrary.push({title: input1, author: input2, pages: input3, option: input4, id: input5});
-      }
+      const sameTitle = myLibrary.find(item => item.title.toLowerCase() === input1.toLowerCase());
 
-      const resultDiv = document.getElementById("result");
+      if (input1 !== "" && input2 !== "" && input3 !== "" && !sameTitle) {
+      myLibrary.push(new Book(input1, input2, input3, input4, input5));
+      }
+      displayArray();
+  }
+
+    function displayArray () {
+    const resultDiv = document.getElementById("result");
     
     // Clear previous content if any (optional, useful if clicking multiple times)
     resultDiv.innerHTML = ''; 
-
     
-    // Iterate through the array and create HTML elements for each item
     myLibrary.forEach(element => {
-        const itemDiv = document.createElement("div"); // Create a new div for each item
-        itemDiv.innerHTML = `Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Option: ${element.option}`;
-        // itemDiv.textContent = element; // Set the text content
-        resultDiv.appendChild(itemDiv); // Append the new div to the result container
+        const itemDiv = document.createElement("div"); 
+        const newButton = document.createElement("button");
+
+        itemDiv.innerHTML = `Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Option: ${element.option}, ID: ${element.id}`;
+        newButton.textContent = "Remove";
+        newButton.id = element.id;
+        resultDiv.appendChild(itemDiv); 
+        resultDiv.appendChild(newButton);
+        console.log(newButton.id);
     });
-
-  }
-
+    }
 /*
       const listContainer = document.getElementById("listContainer");
 
