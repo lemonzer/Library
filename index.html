@@ -76,14 +76,22 @@ function Book(title, author, pages, option, id) {
     
     myLibrary.forEach(element => {
         const itemDiv = document.createElement("div"); 
-        const newButton = document.createElement("button");
+        const removeButton = document.createElement("button");
 
         itemDiv.innerHTML = `Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Option: ${element.option}, ID: ${element.id}`;
-        newButton.textContent = "Remove";
-        newButton.id = element.id;
+        removeButton.textContent = "Remove";
+        removeButton.id = element.id;
+        const index = myLibrary.findIndex(item => item.id === removeButton.id);
         resultDiv.appendChild(itemDiv); 
-        resultDiv.appendChild(newButton);
-        console.log(newButton.id);
+        resultDiv.appendChild(removeButton);
+        removeButton.addEventListener("click", () => {
+          if (index !== -1) {
+          myLibrary.splice(index, 1);
+          
+          displayArray();
+          }
+        })
+        
     });
     }
 /*
