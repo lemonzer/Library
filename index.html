@@ -7,8 +7,8 @@
   </head>
 
   <body>
-
-    <form id="form">
+    <button popovertarget="form">Open dialog</button>
+    <dialog id="form" popover>
   <p>
     <label for="title">Title:</label>
     <input type="text" id="title" name="book_title" />
@@ -29,7 +29,9 @@
 <p class="button">
   <button type="button" onclick="addBookToLibrary()">Save book info</button>
 </p>
-</form>
+</dialog>
+
+
 
 
 <div id="result"></div>
@@ -39,7 +41,7 @@
 const myLibrary = [];      
 
 function Book(title, author, pages, option, id) {
-  
+
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
   }
@@ -51,7 +53,10 @@ function Book(title, author, pages, option, id) {
   };
 
 
-    
+
+
+
+
   function addBookToLibrary () {
 
       const input1 = document.getElementById('title').value;
@@ -76,14 +81,41 @@ function Book(title, author, pages, option, id) {
     
     myLibrary.forEach(element => {
         const itemDiv = document.createElement("div"); 
+        const selectButton = document.createElement("button");
         const removeButton = document.createElement("button");
-
+        
         itemDiv.innerHTML = `Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Option: ${element.option}, ID: ${element.id}`;
+
         removeButton.textContent = "Remove";
         removeButton.id = element.id;
+
+        selectButton.id = element.id;
+        selectButton.textContent = element.option;
+
         const index = myLibrary.findIndex(item => item.id === removeButton.id);
-        resultDiv.appendChild(itemDiv); 
-        resultDiv.appendChild(removeButton);
+
+        selectButton.addEventListener("click", () => {
+          
+              if (element.option === "read") {
+              element.option = "unread";
+              } else if (element.option === "unread") {
+              element.option = "read";
+              }
+              
+          displayArray();
+        })
+        /*
+        myLibrary.forEach(optionData => {
+        const optionSelect =  document.createElement('option');
+          
+        optionSelect.value = this.option;
+        optionSelect.text = this.option;
+
+        selectRead.append(optionSelect);
+        });
+        */
+
+
         removeButton.addEventListener("click", () => {
           if (index !== -1) {
           myLibrary.splice(index, 1);
@@ -91,29 +123,14 @@ function Book(title, author, pages, option, id) {
           displayArray();
           }
         })
+
+        resultDiv.appendChild(itemDiv); 
+        resultDiv.appendChild(selectButton);
+        resultDiv.appendChild(removeButton);
         
     });
     }
-/*
-      const listContainer = document.getElementById("listContainer");
 
-      myLibrary.forEach(item=>{
-      const li = document.createElement("li");
-      li.textContent = item;
-      listContainer.appendChild(li);
-      }) 
-*/
-      
-      
-
-
-      /*
-      const listElement = document.getElementById("booklist");
-
-      const listHTML = myLibrary.map(item => '<li>${item}</li>').join('');
-
-      listElement.innerHTML = listHTML;
-      */
 
     </script>
   </body>
